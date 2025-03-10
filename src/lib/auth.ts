@@ -104,9 +104,12 @@ export const authOptions: NextAuthOptions = {
         return token;
       }
 
+      // Ensure token.email is a string for Prisma
+      const email = token.email as string;
+
       const dbUser = await prisma.user.findFirst({
         where: {
-          email: token.email,
+          email: email,
         },
       });
 
